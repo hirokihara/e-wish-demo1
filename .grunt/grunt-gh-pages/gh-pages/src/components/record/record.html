@@ -2,11 +2,39 @@
 <!-- <div ng-repeat="item in record.list">record.html</div>
  -->
 <div class="row">
-  <div class="col-xs-12">
-    <div align="center">
-      <button class="yellow-ball" ng-click="record.add()">
-        記録
-      </button>
+  <div style="width: 100%; overflow: auto; -webkit-overflow-scrolling: touch;">
+    <div class="col-xs-12">
+      <!--
+      ** 出欠入力エリア（○△×）
+      -->
+      <div class="form-group col-xs-12">
+        <div style="padding-right: 0px; margin-bottom: 20px;">
+          <b>
+            <label class="btn btn-success" ng-model="record.radioModel" btn-radio="'ミルク'" uncheckable>ミルク</label>
+            <label class="btn btn-success" ng-model="record.radioModel" btn-radio="'左胸'" uncheckable>左　胸</label>
+            <label class="btn btn-success" ng-model="record.radioModel" btn-radio="'右胸'" uncheckable>右　胸</label>
+          </b>
+        </div>
+      </div>
+
+      <div ng-show="(record.radioModel === 'ミルク')">
+        <div class="col-xs-9">
+        <input id="range02" type="range" ng-model="record.range1" min="0" max="300" step="10"/>
+        </div>
+        <div class="col-xs-3" align="right">{{record.range1}}ml</div>
+      </div>
+      <div ng-show="(record.radioModel !== 'ミルク')">
+        <div class="col-xs-9">
+        <input id="range01" type="range" ng-model="record.range2" min="0" max="60" step="1"/>
+        </div>
+        <div class="col-xs-3" align="right">{{record.range2}}分</div>
+      </div>
+
+      <div align="center">
+        <button class="yellow-ball" ng-click="record.add()">
+          記録
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -16,6 +44,6 @@
     <h class="list-group-item-heading"><font size="4">授乳記録</font></h>
   </div>
   <!-- <input ng-value="{{item.id}}" />{{item.id}} -->
-  <li class="list-group-item"  ng-repeat="item in record.list | orderBy:'id':true | limitTo:5 track by item.id">{{item.dateTime | date:'yyyy年MM月dd日 HH時mm分ss秒'}}</li>
+  <li class="list-group-item"  ng-repeat="item in record.list | orderBy:'id':true | limitTo:5 track by item.id">{{item.dateTime | date:'yyyy年MM月dd日 HH時mm分ss秒'}}<br>{{item.description}}</li>
 </ul>
 </p>
